@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield | Security Recommendation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7fc 0%, #e8f0f7 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e2edf2;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: #1e6f5c;
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #0a2b4e, #1e6f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .home-link {
+            background: #0a2b4e10;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #1a2c3e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-link:hover {
+            background: #0a2b4e20;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Recommendation Card */
+        .rec-card {
+            background: white;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        /* Card Header */
+        .card-header {
+            background: linear-gradient(135deg, #0a2b4e 0%, #1a4a6f 100%);
+            padding: 32px 32px 28px;
+            text-align: center;
+        }
+
+        .header-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .header-icon i {
+            font-size: 2.2rem;
+            color: white;
+        }
+
+        .card-header h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-header p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 36px 40px 44px;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1a2c3e;
+            margin-bottom: 10px;
+        }
+
+        .form-label i {
+            color: #1e6f5c;
+            font-size: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid #e2edf2;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            background: #fefefe;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1e6f5c;
+            box-shadow: 0 0 0 3px rgba(30, 111, 92, 0.1);
+        }
+
+        textarea.form-control {
+            border-radius: 28px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* Character counter */
+        .char-counter {
+            text-align: right;
+            font-size: 0.7rem;
+            color: #8ba3b5;
+            margin-top: 8px;
+            margin-right: 8px;
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            background: #0a2b4e;
+            color: white;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            background: #1a4a6f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10, 43, 78, 0.2);
+        }
+
+        /* Alert messages */
+        .alert {
+            padding: 14px 20px;
+            border-radius: 60px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .alert-success {
+            background: #e0f0ea;
+            color: #1e6f5c;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #c53030;
+        }
+
+        .alert-info {
+            background: #cbe7fe;
+            color: #0a2b4e;
+        }
+
+        /* Info note */
+        .info-note {
+            background: #f8fafd;
+            border-radius: 20px;
+            padding: 14px 18px;
+            margin-top: 24px;
+            font-size: 0.75rem;
+            color: #5b7a95;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #1e6f5c;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            border-top: 1px solid #e2edf2;
+            margin-top: 48px;
+            color: #5b7a95;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .container {
+                padding: 24px 16px;
+            }
+            .card-body {
+                padding: 28px 24px 36px;
+            }
+            .card-header h2 {
+                font-size: 1.5rem;
+            }
+            .header-icon {
+                width: 55px;
+                height: 55px;
+            }
+            .header-icon i {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-shield-halos"></i>
+                <span>AI CyberShield</span>
+            </a>
+            <div>
+                <a href="/temp/admin/" class="home-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="rec-card">
+            <!-- Card Header -->
+            <div class="card-header">
+                <div class="header-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Security Recommendation</h2>
+                <p>Share your security tips and recommendations</p>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% else %}info{% endif %}">
+                            <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <div class="form-label">
+                            <i class="fas fa-heading"></i>
+                            <span>Title</span>
+                        </div>
+                        <input type="text" name="title" maxlength="45" class="form-control" id="titleInput" placeholder="Enter recommendation title" required>
+                        <div class="char-counter">
+                            <span id="titleCount">0</span> characters
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-label">
+                            <i class="fas fa-align-left"></i>
+                            <span>Description</span>
+                        </div>
+                        <textarea name="description" class="form-control" rows="5" id="descInput" maxlength="500" placeholder="Describe your security recommendation in detail..." required></textarea>
+                        <div class="char-counter">
+                            <span id="descCount">0</span> characters
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Recommendation
+                    </button>
+
+                    <div class="info-note">
+                        <i class="fas fa-lightbulb"></i>
+                        Your recommendation helps others stay secure online. Share best practices for password safety, phishing prevention, 2FA, and more.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p><i class="fas fa-shield-alt"></i> © 2025 AI CyberShield — Community Security Hub</p>
+    </footer>
+
+    <script>
+        // Character counter for title
+        const titleInput = document.getElementById('titleInput');
+        const titleCount = document.getElementById('titleCount');
+
+        if (titleInput) {
+            titleInput.addEventListener('input', function() {
+                titleCount.textContent = this.value.length;
+                if (this.value.length > 80) {
+                    titleCount.style.color = '#ed8936';
+                } else {
+                    titleCount.style.color = '#8ba3b5';
+                }
+            });
+        }
+
+        // Character counter for description
+        const descInput = document.getElementById('descInput');
+        const descCount = document.getElementById('descCount');
+
+        if (descInput) {
+            descInput.addEventListener('input', function() {
+                descCount.textContent = this.value.length;
+                if (this.value.length > 400) {
+                    descCount.style.color = '#ed8936';
+                } else if (this.value.length > 500) {
+                    descCount.style.color = '#c53030';
+                } else {
+                    descCount.style.color = '#8ba3b5';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield | Edit Quiz Question</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7fc 0%, #e8f0f7 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e2edf2;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: #1e6f5c;
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #0a2b4e, #1e6f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-link {
+            background: #0a2b4e10;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: #1a2c3e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #0a2b4e20;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Edit Card */
+        .edit-card {
+            background: white;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Card Header */
+        .card-header {
+            background: linear-gradient(135deg, #0a2b4e 0%, #1a4a6f 100%);
+            padding: 32px 32px 28px;
+            text-align: center;
+        }
+
+        .header-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .header-icon i {
+            font-size: 2.2rem;
+            color: white;
+        }
+
+        .card-header h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-header p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 36px 40px 44px;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1a2c3e;
+            margin-bottom: 10px;
+        }
+
+        .form-label i {
+            color: #1e6f5c;
+            font-size: 1rem;
+        }
+
+        .form-label .required {
+            color: #c53030;
+            font-size: 0.8rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid #e2edf2;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            background: #fefefe;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1e6f5c;
+            box-shadow: 0 0 0 3px rgba(30, 111, 92, 0.1);
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .option-group {
+            background: #f8fafd;
+            border-radius: 20px;
+            padding: 12px 16px;
+        }
+
+        .option-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1e6f5c;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .option-input {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            border: 2px solid #e2edf2;
+            border-radius: 40px;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .option-input:focus {
+            outline: none;
+            border-color: #1e6f5c;
+        }
+
+        /* Correct Answer Select */
+        .correct-select {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid #e2edf2;
+            border-radius: 60px;
+            background: #fefefe;
+            cursor: pointer;
+        }
+
+        .correct-select:focus {
+            outline: none;
+            border-color: #1e6f5c;
+        }
+
+        /* Button */
+        .btn-update {
+            width: 100%;
+            background: #1e6f5c;
+            color: white;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .btn-update:hover {
+            background: #0a5b4a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 111, 92, 0.3);
+        }
+
+        /* Alert messages */
+        .alert {
+            padding: 14px 20px;
+            border-radius: 60px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .alert-success {
+            background: #e0f0ea;
+            color: #1e6f5c;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #c53030;
+        }
+
+        .alert-info {
+            background: #cbe7fe;
+            color: #0a2b4e;
+        }
+
+        /* Info note */
+        .info-note {
+            background: #f8fafd;
+            border-radius: 20px;
+            padding: 14px 18px;
+            margin-top: 24px;
+            font-size: 0.75rem;
+            color: #5b7a95;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #1e6f5c;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            border-top: 1px solid #e2edf2;
+            margin-top: 48px;
+            color: #5b7a95;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .container {
+                padding: 24px 16px;
+            }
+            .card-body {
+                padding: 28px 24px 36px;
+            }
+            .card-header h2 {
+                font-size: 1.5rem;
+            }
+            .header-icon {
+                width: 55px;
+                height: 55px;
+            }
+            .header-icon i {
+                font-size: 1.8rem;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">
+            <i class="fas fa-shield-halos"></i>
+            <span>AI CyberShield</span>
+        </a>
+        <div class="nav-links">
+            <a href="/quiz/view_quiz/" class="nav-link">
+                <i class="fas fa-arrow-left"></i> Back to Questions
+            </a>
+            <a href="/" class="nav-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="edit-card">
+        <!-- Card Header -->
+        <div class="card-header">
+            <div class="header-icon">
+                <i class="fas fa-edit"></i>
+            </div>
+            <h2>Edit Quiz Question</h2>
+            <p>Modify the question and its options</p>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% else %}info{% endif %}">
+                        <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Question -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Question</span>
+                        <span class="required">*</span>
+                    </div>
+                    <input type="text" name="question" class="form-control" value="{{ i.question }}" required>
+                </div>
+
+                <!-- Options Grid -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <i class="fas fa-list-ol"></i>
+                        <span>Answer Options</span>
+                        <span class="required">*</span>
+                    </div>
+                    <div class="options-grid">
+                        <div class="option-group">
+                            <div class="option-label">
+                                <i class="fas fa-a"></i> Option 1
+                            </div>
+                            <input type="text" name="option1" class="option-input" value="{{ i.option1 }}" required>
+                        </div>
+                        <div class="option-group">
+                            <div class="option-label">
+                                <i class="fas fa-b"></i> Option 2
+                            </div>
+                            <input type="text" name="option2" class="option-input" value="{{ i.option2 }}" required>
+                        </div>
+                        <div class="option-group">
+                            <div class="option-label">
+                                <i class="fas fa-c"></i> Option 3
+                            </div>
+                            <input type="text" name="option3" class="option-input" value="{{ i.option3 }}" required>
+                        </div>
+                        <div class="option-group">
+                            <div class="option-label">
+                                <i class="fas fa-d"></i> Option 4
+                            </div>
+                            <input type="text" name="option4" class="option-input" value="{{ i.option4 }}" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Correct Answer -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Correct Answer</span>
+                        <span class="required">*</span>
+                    </div>
+                    <select name="correct_answer" class="correct-select" required>
+                        <option value="option1" {% if i.correct_answer == 'option1' %}selected{% endif %}>Option 1: {{ i.option1|truncatechars:30 }}</option>
+                        <option value="option2" {% if i.correct_answer == 'option2' %}selected{% endif %}>Option 2: {{ i.option2|truncatechars:30 }}</option>
+                        <option value="option3" {% if i.correct_answer == 'option3' %}selected{% endif %}>Option 3: {{ i.option3|truncatechars:30 }}</option>
+                        <option value="option4" {% if i.correct_answer == 'option4' %}selected{% endif %}>Option 4: {{ i.option4|truncatechars:30 }}</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-update">
+                    <i class="fas fa-save"></i>
+                    Update Question
+                </button>
+
+                <div class="info-note">
+                    <i class="fas fa-lightbulb"></i>
+                    The correct answer must match one of the options above. Make sure to select the right one.
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p><i class="fas fa-graduation-cap"></i> © 2025 AI CyberShield — Quiz Management System</p>
+</footer>
+
+<script>
+    // Live update of correct answer dropdown when options change
+    const option1Input = document.querySelector('input[name="option1"]');
+    const option2Input = document.querySelector('input[name="option2"]');
+    const option3Input = document.querySelector('input[name="option3"]');
+    const option4Input = document.querySelector('input[name="option4"]');
+    const correctSelect = document.querySelector('select[name="correct_answer"]');
+
+    function updateCorrectOptions() {
+        const options = {
+            option1: option1Input.value.trim(),
+            option2: option2Input.value.trim(),
+            option3: option3Input.value.trim(),
+            option4: option4Input.value.trim()
+        };
+
+        for (let i = 1; i <= 4; i++) {
+            const optValue = options[`option${i}`];
+            const optionElement = correctSelect.querySelector(`option[value="option${i}"]`);
+            if (optionElement && optValue) {
+                optionElement.textContent = `Option ${i}: ${optValue.substring(0, 50)}${optValue.length > 50 ? '...' : ''}`;
+            }
+        }
+    }
+
+    option1Input.addEventListener('input', updateCorrectOptions);
+    option2Input.addEventListener('input', updateCorrectOptions);
+    option3Input.addEventListener('input', updateCorrectOptions);
+    option4Input.addEventListener('input', updateCorrectOptions);
+</script>
+
+</body>
+</html>

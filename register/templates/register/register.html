@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield | Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7fc 0%, #e8f0f7 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar styling matching theme */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e2edf2;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: #1e6f5c;
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #0a2b4e, #1e6f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .home-link {
+            background: #0a2b4e10;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #1a2c3e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-link:hover {
+            background: #0a2b4e20;
+        }
+
+        /* Main registration container */
+        .register-container {
+            max-width: 540px;
+            width: 100%;
+            margin: 40px auto;
+            background: white;
+            border-radius: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        /* Header with brand */
+        .register-header {
+            background: linear-gradient(135deg, #0a2b4e 0%, #1a4a6f 100%);
+            padding: 32px 32px 28px;
+            text-align: center;
+        }
+
+        .brand-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .brand-icon i {
+            font-size: 2.5rem;
+            color: #7bc5ae;
+        }
+
+        .brand-icon span {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .register-header h2 {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .register-header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            margin-top: 6px;
+        }
+
+        /* Form body */
+        .register-body {
+            padding: 36px 36px 44px;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1a2c3e;
+            margin-bottom: 8px;
+        }
+
+        .input-label i {
+            color: #1e6f5c;
+            width: 18px;
+            font-size: 0.9rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 13px 18px;
+            font-size: 0.95rem;
+            border: 2px solid #e2edf2;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            background: #fefefe;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #1e6f5c;
+            box-shadow: 0 0 0 3px rgba(30, 111, 92, 0.1);
+        }
+
+        .input-field.error {
+            border-color: #c53030;
+        }
+
+        /* Password wrapper for toggle */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #8ba3b5;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: #1e6f5c;
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            margin-top: 8px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strength-bar {
+            flex: 1;
+            height: 4px;
+            background: #e2edf2;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .strength-text {
+            color: #8ba3b5;
+            font-weight: 500;
+            min-width: 65px;
+            font-size: 0.7rem;
+        }
+
+        /* Password requirements */
+        .requirements {
+            font-size: 0.7rem;
+            color: #8ba3b5;
+            margin-top: 8px;
+            margin-left: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .requirement {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .requirement.valid {
+            color: #1e6f5c;
+        }
+
+        .requirement.invalid {
+            color: #c53030;
+        }
+
+        /* Register button */
+        .btn-register {
+            width: 100%;
+            background: #0a2b4e;
+            color: white;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .btn-register:hover {
+            background: #1a4a6f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10, 43, 78, 0.2);
+        }
+
+        .btn-register:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Login link */
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: #5b7a95;
+        }
+
+        .login-link a {
+            color: #1e6f5c;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Security badge */
+        .security-badge {
+            text-align: center;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #eef2f6;
+            font-size: 0.7rem;
+            color: #8ba3b5;
+        }
+
+        .security-badge i {
+            color: #1e6f5c;
+            margin-right: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .register-container {
+                margin: 20px;
+                width: calc(100% - 40px);
+            }
+            .register-body {
+                padding: 28px 24px;
+            }
+            .brand-icon span {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar with Back Home Button -->
+    <div class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo" id="homeLogoBtn">
+                <i class="fas fa-shield-halos"></i>
+                <span>AI CyberShield</span>
+            </a>
+            <div>
+                <a href="/" class="home-link" id="homeNavBtn">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Container -->
+    <div class="register-container">
+        <div class="register-header">
+            <div class="brand-icon">
+                <i class="fas fa-user-plus"></i>
+                <span>AI CyberShield</span>
+            </div>
+            <h2>Create an Account</h2>
+            <p>Join the intelligent email security platform</p>
+        </div>
+{% if messages %}
+<script>
+window.onload = function(){
+    {% for message in messages %}
+        alert("{{ message }}");
+    {% endfor %}
+}
+</script>
+{% endif %}
+        <div class="register-body">
+            <form method="post" id="registerForm" onsubmit="return validateForm()">
+                {% csrf_token %}
+
+                <!-- Username Field -->
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-user"></i>
+                        <span>Username</span>
+                    </div>
+                    <input type="text"
+                           name="username"
+                           id="username"
+                           class="input-field"
+                           placeholder="Choose a username"
+                           required>
+                    <div style="font-size: 0.7rem; color: #8ba3b5; margin-top: 5px; margin-left: 12px;">
+                        <i class="fas fa-info-circle"></i> 3-20 characters, letters, numbers, and underscores
+                    </div>
+                </div>
+
+                <!-- Email Field with regex pattern -->
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Address</span>
+                    </div>
+                    <input type="email"
+                           name="email"
+                           id="email"
+                           class="input-field"
+                           placeholder="your@email.com"
+                           pattern="^[\w\.-]+@[\w\.-]+\.\w+$"
+                           required>
+                </div>
+
+                <!-- Password Field with toggle and validation -->
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-lock"></i>
+                        <span>Password</span>
+                    </div>
+                    <div class="password-wrapper">
+                        <input type="password"
+                               name="password"
+                               id="password"
+                               class="input-field"
+                               placeholder="Create a strong password"
+                               required
+                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$"
+                               title="Password must be at least 8 characters long and contain one uppercase letter, one lowercase letter, one number, and one special character">
+                        <i class="fas fa-eye toggle-password" id="togglePasswordIcon1" style="cursor: pointer;"></i>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <span class="strength-text" id="strengthText">Weak</span>
+                    </div>
+                    <div class="requirements" id="requirements">
+                        <span class="requirement" id="reqLength"><i class="fas fa-circle"></i> Min 8 characters</span>
+                        <span class="requirement" id="reqUpper"><i class="fas fa-circle"></i> Uppercase letter</span>
+                        <span class="requirement" id="reqLower"><i class="fas fa-circle"></i> Lowercase letter</span>
+                        <span class="requirement" id="reqNumber"><i class="fas fa-circle"></i> Number</span>
+                        <span class="requirement" id="reqSpecial"><i class="fas fa-circle"></i> Special character (@$!%*?&)</span>
+                    </div>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-lock"></i>
+                        <span>Confirm Password</span>
+                    </div>
+                    <div class="password-wrapper">
+                        <input type="password"
+                               name="confirmpassword"
+                               id="confirmpassword"
+                               class="input-field"
+                               placeholder="Confirm your password"
+                               required>
+                        <i class="fas fa-eye toggle-password" id="togglePasswordIcon2" style="cursor: pointer;"></i>
+                    </div>
+                    <div id="confirmMatchMessage" style="font-size: 0.7rem; margin-top: 5px; margin-left: 12px;"></div>
+                </div>
+
+                <!-- Register Button -->
+                <button type="submit" class="btn-register" id="registerBtn">
+                    <i class="fas fa-arrow-right-to-bracket"></i>
+                    Create Account
+                </button>
+
+                <div class="login-link">
+                    Already have an account? <a href="/login/login/">Sign in instead</a>
+                </div>
+
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i> Your data is protected · Secure registration
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+    // Django Messages Alert
+    document.addEventListener("DOMContentLoaded", function () {
+        {% if messages %}
+            {% for message in messages %}
+                alert("{{ message|escapejs }}");
+            {% endfor %}
+        {% endif %}
+    });
+
+    // Password visibility toggle
+    const toggleIcons = document.querySelectorAll('.toggle-password');
+
+    toggleIcons.forEach((icon, index) => {
+        icon.addEventListener('click', function () {
+
+            let targetInput;
+
+            if (index === 0) {
+                targetInput = document.getElementById('password');
+            } else {
+                targetInput = document.getElementById('confirmpassword');
+            }
+
+            const type = targetInput.getAttribute('type') === 'password'
+                ? 'text'
+                : 'password';
+
+            targetInput.setAttribute('type', type);
+
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    });
+
+    const passwordField = document.getElementById('password');
+    const confirmField = document.getElementById('confirmpassword');
+    const strengthFill = document.getElementById('strengthFill');
+    const strengthText = document.getElementById('strengthText');
+    const confirmMessage = document.getElementById('confirmMatchMessage');
+
+    const reqLength = document.getElementById('reqLength');
+    const reqUpper = document.getElementById('reqUpper');
+    const reqLower = document.getElementById('reqLower');
+    const reqNumber = document.getElementById('reqNumber');
+    const reqSpecial = document.getElementById('reqSpecial');
+
+    function checkRequirements(password) {
+
+        let validCount = 0;
+
+        if (password.length >= 8) {
+            reqLength.className = "requirement valid";
+            reqLength.innerHTML = '<i class="fas fa-check-circle"></i> Min 8 characters';
+            validCount++;
+        } else {
+            reqLength.className = "requirement invalid";
+            reqLength.innerHTML = '<i class="fas fa-circle"></i> Min 8 characters';
+        }
+
+        if (/[A-Z]/.test(password)) {
+            reqUpper.className = "requirement valid";
+            reqUpper.innerHTML = '<i class="fas fa-check-circle"></i> Uppercase letter';
+            validCount++;
+        } else {
+            reqUpper.className = "requirement invalid";
+            reqUpper.innerHTML = '<i class="fas fa-circle"></i> Uppercase letter';
+        }
+
+        if (/[a-z]/.test(password)) {
+            reqLower.className = "requirement valid";
+            reqLower.innerHTML = '<i class="fas fa-check-circle"></i> Lowercase letter';
+            validCount++;
+        } else {
+            reqLower.className = "requirement invalid";
+            reqLower.innerHTML = '<i class="fas fa-circle"></i> Lowercase letter';
+        }
+
+        if (/[0-9]/.test(password)) {
+            reqNumber.className = "requirement valid";
+            reqNumber.innerHTML = '<i class="fas fa-check-circle"></i> Number';
+            validCount++;
+        } else {
+            reqNumber.className = "requirement invalid";
+            reqNumber.innerHTML = '<i class="fas fa-circle"></i> Number';
+        }
+
+        if (/[@$!%*?&]/.test(password)) {
+            reqSpecial.className = "requirement valid";
+            reqSpecial.innerHTML = '<i class="fas fa-check-circle"></i> Special Character';
+            validCount++;
+        } else {
+            reqSpecial.className = "requirement invalid";
+            reqSpecial.innerHTML = '<i class="fas fa-circle"></i> Special Character';
+        }
+
+        return validCount;
+    }
+
+    function updateStrength() {
+
+        const password = passwordField.value;
+
+        const validCount = checkRequirements(password);
+
+        let percentage = (validCount / 5) * 100;
+
+        strengthFill.style.width = percentage + "%";
+
+        if (validCount <= 2) {
+
+            strengthFill.style.background = "#e53e3e";
+            strengthText.textContent = "Weak";
+            strengthText.style.color = "#e53e3e";
+
+        } else if (validCount <= 3) {
+
+            strengthFill.style.background = "#ed8936";
+            strengthText.textContent = "Medium";
+            strengthText.style.color = "#ed8936";
+
+        } else if (validCount <= 4) {
+
+            strengthFill.style.background = "#ecc94b";
+            strengthText.textContent = "Good";
+            strengthText.style.color = "#b7791f";
+
+        } else {
+
+            strengthFill.style.background = "#1e6f5c";
+            strengthText.textContent = "Strong";
+            strengthText.style.color = "#1e6f5c";
+        }
+
+        checkConfirmMatch();
+    }
+
+    function checkConfirmMatch() {
+
+        const password = passwordField.value;
+        const confirm = confirmField.value;
+
+        if (confirm && password !== confirm) {
+
+            confirmMessage.innerHTML =
+                '<i class="fas fa-times-circle"></i> Passwords do not match';
+
+            confirmMessage.style.color = "#c53030";
+
+            confirmField.classList.add("error");
+
+            return false;
+
+        } else if (confirm && password === confirm) {
+
+            confirmMessage.innerHTML =
+                '<i class="fas fa-check-circle"></i> Passwords match';
+
+            confirmMessage.style.color = "#1e6f5c";
+
+            confirmField.classList.remove("error");
+
+            return true;
+
+        } else {
+
+            confirmMessage.innerHTML = "";
+
+            confirmField.classList.remove("error");
+
+            return false;
+        }
+    }
+
+    function validateForm() {
+
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmpassword").value;
+        let email = document.getElementById("email").value;
+        let username = document.getElementById("username").value;
+
+        const passwordPattern =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+        const emailPattern =
+            /^[\w\.-]+@[\w\.-]+\.\w+$/;
+
+        if (!passwordPattern.test(password)) {
+
+            alert(
+                "Password must contain uppercase, lowercase, number, special character and be at least 8 characters long."
+            );
+
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+
+            alert("Passwords do not match!");
+
+            return false;
+        }
+
+        if (!emailPattern.test(email)) {
+
+            alert("Please enter a valid email address!");
+
+            return false;
+        }
+
+        if (username.length < 3 || username.length > 20) {
+
+            alert("Username must be between 3 and 20 characters!");
+
+            return false;
+        }
+
+        // DO NOT SHOW SUCCESS ALERT HERE
+        // Django will show success or error message
+
+        return true;
+    }
+
+    passwordField.addEventListener('input', updateStrength);
+    confirmField.addEventListener('input', checkConfirmMatch);
+
+    updateStrength();
+    {##}
+    {#document.getElementById('homeLogoBtn')?.addEventListener('click', function (e) {#}
+    {#    e.preventDefault();#}
+    {#    window.location.href = '/';#}
+    {#});#}
+    {##}
+    {#document.getElementById('homeNavBtn')?.addEventListener('click', function (e) {#}
+    {#    e.preventDefault();#}
+    {#    window.location.href = '/';#}
+    });
+
+</script>
+</body>
+</html>

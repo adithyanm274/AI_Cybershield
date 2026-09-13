@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield | Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7fc 0%, #e8f0f7 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e2edf2;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: #1e6f5c;
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #0a2b4e, #1e6f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .home-link {
+            background: #0a2b4e10;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #1a2c3e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-link:hover {
+            background: #0a2b4e20;
+        }
+
+        /* Main wrapper for centering login container */
+        .main-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 70px);
+            padding: 40px 24px;
+        }
+
+        /* Main login container */
+        .login-container {
+            max-width: 480px;
+            width: 100%;
+            background: white;
+            border-radius: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        /* Header with brand */
+        .login-header {
+            background: linear-gradient(135deg, #0a2b4e 0%, #1a4a6f 100%);
+            padding: 40px 32px 32px;
+            text-align: center;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .header-logo i {
+            font-size: 2.8rem;
+            color: #7bc5ae;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .header-logo span {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.02em;
+        }
+
+        .login-header h2 {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        .login-header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        /* Form body */
+        .login-body {
+            padding: 40px 36px 48px;
+        }
+
+        .input-group {
+            margin-bottom: 28px;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1a2c3e;
+            margin-bottom: 8px;
+        }
+
+        .input-label i {
+            color: #1e6f5c;
+            width: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 1rem;
+            border: 2px solid #e2edf2;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            background: #fefefe;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #1e6f5c;
+            box-shadow: 0 0 0 3px rgba(30, 111, 92, 0.1);
+        }
+
+        /* Password toggle */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #8ba3b5;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: #1e6f5c;
+        }
+
+        /* Login button */
+        .btn-login {
+            width: 100%;
+            background: #0a2b4e;
+            color: white;
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .btn-login:hover {
+            background: #1a4a6f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10, 43, 78, 0.2);
+        }
+
+        /* security badge */
+        .security-badge {
+            text-align: center;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #eef2f6;
+            font-size: 0.75rem;
+            color: #8ba3b5;
+        }
+
+        .security-badge i {
+            color: #1e6f5c;
+            margin-right: 6px;
+        }
+
+        /* error message styling */
+        .error-message {
+            background: #fee2e2;
+            color: #c53030;
+            padding: 12px 18px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .field-error {
+            color: #c53030;
+            font-size: 0.75rem;
+            margin-top: 6px;
+            margin-left: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .main-wrapper {
+                padding: 24px 16px;
+            }
+            .login-body {
+                padding: 32px 24px;
+            }
+            .login-header {
+                padding: 32px 24px;
+            }
+            .header-logo span {
+                font-size: 1.4rem;
+            }
+            .login-header h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-shield-halos"></i>
+                <span>AI CyberShield</span>
+            </a>
+            <div>
+                <a href="/" class="home-link">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main wrapper for centering -->
+    <div class="main-wrapper">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="header-logo">
+                    <i class="fas fa-shield-halos"></i>
+                    <span>AI CyberShield</span>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Secure your digital world with intelligent email protection</p>
+            </div>
+
+            <div class="login-body">
+                <form method="post">
+                    {% csrf_token %}
+{% if msg %}
+<script>
+    alert("{{ msg }}");
+</script>
+{% endif %}
+                    <!-- Display non-field errors -->
+                    {% if form.non_field_errors %}
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Username Field -->
+                    <div class="input-group">
+                        <div class="input-label">
+                            <i class="fas fa-user"></i>
+                            <span>Username</span>
+                        </div>
+                        <input type="text"
+                               name="username"
+                               class="input-field"
+                               placeholder="Enter your username"
+                               value="{{ form.username.value|default:'' }}"
+                               autofocus>
+                        {% if form.username.errors %}
+                            <div class="field-error">
+                                {% for error in form.username.errors %}
+                                    <i class="fas fa-circle-exclamation"></i> {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password Field with toggle visibility -->
+                    <div class="input-group">
+                        <div class="input-label">
+                            <i class="fas fa-lock"></i>
+                            <span>Password</span>
+                        </div>
+                        <div class="password-wrapper">
+                            <input type="password"
+                                   name="password"
+                                   id="passwordField"
+                                   class="input-field"
+                                   placeholder="Enter your password">
+                            <i class="fas fa-eye toggle-password" id="togglePasswordIcon"></i>
+                        </div>
+                        {% if form.password.errors %}
+                            <div class="field-error">
+                                {% for error in form.password.errors %}
+                                    <i class="fas fa-circle-exclamation"></i> {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" class="btn-login">
+                        <i class="fas fa-arrow-right-to-bracket"></i>
+                        Login to Dashboard
+                    </button>
+
+                    <div class="security-badge">
+                        <i class="fas fa-shield-alt"></i> End-to-end encrypted · Protected by AI CyberShield
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password visibility toggle functionality
+        const togglePassword = document.getElementById('togglePasswordIcon');
+        const passwordField = document.getElementById('passwordField');
+
+        if (togglePassword && passwordField) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+    </script>
+</body>
+</html>
+```

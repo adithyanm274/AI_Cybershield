@@ -1,0 +1,609 @@
+{#<html>#}
+{#<h2>Your Score</h2>#}
+{##}
+{#<h1>{{ score }} / {{ total }}</h1>#}
+{##}
+{#{% if score == total %}#}
+{#    <p>Excellent! 🎉</p>#}
+{#{% elif score >= total|divisibleby:2 %}#}
+{#    <p>Good Job 👍</p>#}
+{#{% else %}#}
+{#    <p>Keep Learning 🔐</p>#}
+{#{% endif %}#}
+{#</html>#}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield | Quiz Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f7fc 0%, #e8f0f7 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e2edf2;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: #1e6f5c;
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #0a2b4e, #1e6f5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .home-link {
+            background: #0a2b4e10;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            color: #1a2c3e;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-link:hover {
+            background: #0a2b4e20;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: white;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card Header */
+        .card-header {
+            background: linear-gradient(135deg, #0a2b4e 0%, #1a4a6f 100%);
+            padding: 32px 32px 28px;
+            text-align: center;
+        }
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255,255,255,0.4);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(255,255,255,0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255,255,255,0);
+            }
+        }
+
+        .header-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .card-header h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-header p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+        }
+
+        /* Score Section */
+        .score-section {
+            text-align: center;
+            padding: 48px 32px 32px;
+            border-bottom: 1px solid #f0f4f9;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 24px;
+            position: relative;
+        }
+
+        .score-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .score-circle circle {
+            fill: none;
+            stroke-width: 12;
+            stroke-linecap: round;
+        }
+
+        .score-circle .bg-circle {
+            stroke: #e2edf2;
+        }
+
+        .score-circle .progress-circle {
+            stroke: #1e6f5c;
+            stroke-dasharray: 565.48;
+            stroke-dashoffset: 565.48;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #0a2b4e;
+            line-height: 1;
+        }
+
+        .score-total {
+            font-size: 1.2rem;
+            color: #8ba3b5;
+            font-weight: 500;
+        }
+
+        .score-percentage {
+            font-size: 1rem;
+            color: #1e6f5c;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+ .message-section {
+    text-align: center;
+    padding: 24px 32px;
+    background: #f8fafd;
+    margin: 0 32px 32px 32px;
+    border-radius: 32px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.message-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0a2b4e;
+    margin-bottom: 8px;
+}
+
+.message-subtext {
+    font-size: 0.95rem;
+    color: #5b7a95;
+    line-height: 1.6;
+    max-width: 450px;
+}
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 0 32px 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background: #f8fafd;
+            border-radius: 24px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0a2b4e;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #8ba3b5;
+            margin-top: 4px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            padding: 0 32px 48px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background: #1e6f5c;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #0a5b4a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 111, 92, 0.3);
+        }
+
+        .btn-secondary {
+            flex: 1;
+            background: #e2edf2;
+            color: #1a2c3e;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #cbdde9;
+            transform: translateY(-2px);
+        }
+
+        /* Detailed Results Section */
+        .details-section {
+            margin-top: 32px;
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e9f0f5;
+        }
+
+        .details-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0a2b4e;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-item {
+            padding: 16px;
+            background: #f8fafd;
+            border-radius: 20px;
+            border-left: 4px solid;
+            transition: 0.2s;
+        }
+
+        .detail-item.correct {
+            border-left-color: #1e6f5c;
+        }
+
+        .detail-item.incorrect {
+            border-left-color: #c53030;
+        }
+
+        .detail-question {
+            font-weight: 600;
+            color: #1a2c3e;
+            margin-bottom: 8px;
+        }
+
+        .detail-answers {
+            font-size: 0.85rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .detail-user-answer {
+            color: #c53030;
+        }
+
+        .detail-correct-answer {
+            color: #1e6f5c;
+        }
+
+        .detail-user-answer i, .detail-correct-answer i {
+            margin-right: 4px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0 20px;
+            border-top: 1px solid #e2edf2;
+            margin-top: 48px;
+            color: #5b7a95;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .container {
+                padding: 24px 16px;
+            }
+            .score-circle {
+                width: 160px;
+                height: 160px;
+            }
+            .score-number {
+                font-size: 2.5rem;
+            }
+            .stats-grid {
+                gap: 10px;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .details-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">
+            <i class="fas fa-shield-halos"></i>
+            <span>AI CyberShield</span>
+        </a>
+        <div>
+            <a href="/" class="home-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Result Card -->
+    <div class="result-card">
+        <!-- Card Header -->
+        <div class="card-header">
+            <div class="header-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h2>Quiz Completed!</h2>
+            <p>Here's how you performed on the cybersecurity awareness quiz</p>
+        </div>
+
+        <!-- Score Section -->
+        <div class="score-section">
+            <div class="score-circle" id="scoreCircle">
+                <svg viewBox="0 0 200 200">
+                    <circle class="bg-circle" cx="100" cy="100" r="90"></circle>
+                    <circle class="progress-circle" cx="100" cy="100" r="90" id="progressCircle"></circle>
+                </svg>
+                <div class="score-text">
+                    <div class="score-number">{{ score }}</div>
+                    <div class="score-total">/ {{ total }}</div>
+                    <div class="score-percentage">{{ percentage }}%</div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Message Section -->
+<div class="message-section">
+
+    {% if score == total %}
+        <div class="message-icon">🎉🏆</div>
+        <div class="message-text">Excellent! Perfect Score!</div>
+        <div class="message-subtext">
+            You're a cybersecurity expert! Keep up the great work.
+        </div>
+
+    {% elif percentage >= 50 %}
+        <div class="message-icon">👍🌟</div>
+        <div class="message-text">Good Job!</div>
+        <div class="message-subtext">
+            You have a solid understanding of cybersecurity basics.
+        </div>
+
+    {% else %}
+        <div class="message-icon">🔐📚</div>
+        <div class="message-text">Keep Learning!</div>
+        <div class="message-subtext">
+            Review the topics and try again to improve your score.
+        </div>
+    {% endif %}
+
+</div>
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">{{ score }}</div>
+                <div class="stat-label">Correct Answers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ wrong }}</div>
+                <div class="stat-label">Incorrect Answers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">{{ percentage }}%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="/quiz/view/" class="btn-primary">
+                <i class="fas fa-redo-alt"></i> Retake Quiz
+            </a>
+            <a href="/temp/user/" class="btn-secondary">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Detailed Results Section (if results data is available) -->
+    {% if results %}
+    <div class="details-section">
+        <div class="details-title">
+            <i class="fas fa-list-check"></i>
+            Detailed Review
+        </div>
+        <div class="details-list">
+            {% for result in results %}
+            <div class="detail-item {% if result.is_correct %}correct{% else %}incorrect{% endif %}">
+                <div class="detail-question">
+                    <i class="fas fa-question-circle"></i> {{ result.question }}
+                </div>
+                <div class="detail-answers">
+                    <span class="detail-user-answer">
+                        <i class="fas fa-user-check"></i> Your answer: {{ result.user_answer }}
+                    </span>
+                    <span class="detail-correct-answer">
+                        <i class="fas fa-check-circle"></i> Correct answer: {{ result.correct_answer }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<footer>
+    <p><i class="fas fa-shield-alt"></i> © 2025 AI CyberShield — Keep learning, stay secure</p>
+</footer>
+
+<script>
+    // Animate the progress circle on load
+    const percentage = {{ percentage }};
+    const circumference = 2 * Math.PI * 90; // 2 * pi * r = 2 * 3.14159 * 90 = 565.48
+    const progressCircle = document.getElementById('progressCircle');
+
+    if (progressCircle) {
+        const offset = circumference - (percentage / 100) * circumference;
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = circumference;
+
+        // Trigger animation after a small delay
+        setTimeout(() => {
+            progressCircle.style.strokeDashoffset = offset;
+        }, 100);
+    }
+</script>
+
+</body>
+</html>

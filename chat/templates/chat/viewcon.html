@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield | Organizations Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a2b4e 0%, #1a4a6f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
+        }
+
+        /* Chat Container */
+        .chat-container {
+            width: 100%;
+            max-width: 550px;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .chat-header {
+            background: linear-gradient(135deg, #0a2b4e 0%, #1a4a6f 100%);
+            padding: 24px 28px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+        }
+
+        .header-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .chat-header h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .chat-header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+        }
+
+        /* Stats Badge */
+        .stats-badge {
+            background: #f8fafd;
+            padding: 12px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .stats-badge span {
+            background: #e0f0ea;
+            color: #1e6f5c;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Organizations List */
+        .orgs-list {
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        /* Custom scrollbar */
+        .orgs-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .orgs-list::-webkit-scrollbar-track {
+            background: #e2edf2;
+        }
+
+        .orgs-list::-webkit-scrollbar-thumb {
+            background: #1e6f5c;
+            border-radius: 10px;
+        }
+
+        /* Organization Item */
+        .org-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            gap: 14px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f0f4f9;
+        }
+
+        .org-item:hover {
+            background: #fafdff;
+            transform: translateX(4px);
+        }
+
+        /* Avatar */
+        .org-avatar {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #e0f0ea, #c5e0d6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .org-avatar i {
+            color: #1e6f5c;
+            font-size: 1.4rem;
+        }
+
+        /* Organization Info */
+        .org-info {
+            flex: 1;
+        }
+
+        .org-name {
+            font-weight: 700;
+            color: #1a2c3e;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .org-name i {
+            color: #1e6f5c;
+            font-size: 0.8rem;
+        }
+
+        .org-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.65rem;
+            color: #8ba3b5;
+            margin-top: 4px;
+        }
+
+        .org-status i {
+            font-size: 0.45rem;
+            color: #1e6f5c;
+        }
+
+        /* Online indicator */
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #1e6f5c;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            box-shadow: 0 0 0 2px rgba(30, 111, 92, 0.2);
+        }
+
+        /* Chat Button */
+        .chat-btn {
+            background: #0a2b4e;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .chat-btn:hover {
+            background: #1a4a6f;
+            transform: translateY(-1px);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #8ba3b5;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        .chat-footer {
+            padding: 16px 24px;
+            background: #f8fafd;
+            text-align: center;
+            border-top: 1px solid #eef2f6;
+            font-size: 0.7rem;
+            color: #8ba3b5;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .back-btn {
+                top: 16px;
+                right: 16px;
+                padding: 8px 16px;
+                font-size: 0.75rem;
+            }
+            .chat-container {
+                max-width: 100%;
+                border-radius: 24px;
+            }
+            .chat-header {
+                padding: 20px;
+            }
+            .chat-header h2 {
+                font-size: 1.3rem;
+            }
+            .org-item {
+                padding: 14px 18px;
+                flex-wrap: wrap;
+            }
+            .chat-btn {
+                width: 100%;
+                justify-content: center;
+                margin-top: 8px;
+            }
+            .org-avatar {
+                width: 44px;
+                height: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Back to Home Button -->
+<a href="/temp/user/" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Home
+</a>
+
+<div class="chat-container">
+    <!-- Header -->
+    <div class="chat-header">
+        <div class="header-icon">
+            <i class="fas fa-building"></i>
+        </div>
+        <h2>Organizations</h2>
+        <p>Connect with organizations for support</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-badge">
+        <span><i class="fas fa-building"></i> {{ u|length }} Organizations Available</span>
+    </div>
+
+    <!-- Organizations List -->
+    <div class="orgs-list">
+        {% for i in u %}
+        <a href="/chat/con/{{ i.organization_id }}" class="org-item">
+            <div class="org-avatar">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="org-info">
+                <div class="org-name">
+                    {{ i.username }}
+                    <span class="org-status">
+                        <span class="online-dot"></span> Active
+                    </span>
+                </div>
+                <div class="org-status">
+                    <i class="fas fa-id-card"></i> ID: {{ i.organization_id }}
+                </div>
+            </div>
+            <div class="chat-btn">
+                <i class="fas fa-comment-dots"></i> Chat
+            </div>
+        </a>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>No organizations available</p>
+            <p style="font-size: 0.8rem; margin-top: 4px;">Check back later</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Footer -->
+    <div class="chat-footer">
+        <i class="fas fa-shield-alt"></i> Secure & Encrypted Communication
+    </div>
+</div>
+
+</body>
+</html>

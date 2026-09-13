@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AI CyberShield | Intelligent Email Security & Awareness</title>
+  <!-- Google Fonts & simple reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f6f9fe;
+      color: #1a2c3e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+/* Dropdown */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+}
+
+.dropbtn:hover {
+    color: #1e6f5c;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 260px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+    padding: 10px 0;
+    z-index: 999;
+}
+
+.dropdown-content a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #1a2c3e;
+    font-size: 0.95rem;
+}
+
+.dropdown-content a:hover {
+    background: #f0f7fc;
+    color: #1e6f5c;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+    /* buttons & badges */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.25s ease;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+    }
+
+    .btn-primary {
+      background: #0a2b4e;
+      color: white;
+      box-shadow: 0 8px 18px rgba(10, 43, 78, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: #0f3b66;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(10, 43, 78, 0.2);
+    }
+
+    .btn-outline {
+      border: 2px solid #0a2b4e;
+      color: #0a2b4e;
+      background: white;
+    }
+
+    .btn-outline:hover {
+      background: #0a2b4e10;
+      border-color: #0f3b66;
+    }
+
+    /* header / nav */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .logo i {
+      color: #1e6f5c;
+      font-size: 2rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, #0a2b4e, #1e6f5c);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e50;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #1e6f5c;
+    }
+
+    /* hero */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 60px 0 40px;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    .hero-badge {
+      background: #e1f0fa;
+      color: #0a5b7c;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      color: #0a2b4e;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #2c4e6e;
+      margin-bottom: 32px;
+      max-width: 550px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 28px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      font-weight: 700;
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #1e6f5c;
+    }
+
+    .hero-visual {
+      flex: 1;
+      background: linear-gradient(145deg, #ffffff, #f2f7fd);
+      border-radius: 48px;
+      padding: 30px;
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .shield-icon {
+      font-size: 5rem;
+      color: #1e6f5c;
+      margin-bottom: 16px;
+    }
+
+    /* features grid */
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 60px 0 20px;
+      color: #0a2b4e;
+    }
+
+    .section-sub {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 48px;
+      color: #4a627a;
+      font-size: 1.1rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 32px;
+      padding: 28px 24px;
+      transition: 0.25s ease;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 36px -12px rgba(0, 0, 0, 0.12);
+      border-color: #cbdde9;
+    }
+
+    .card-icon {
+      font-size: 2.6rem;
+      color: #1e6f5c;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    /* awareness quiz module highlight */
+    .quiz-module {
+      background: linear-gradient(120deg, #eef4fc, #ffffff);
+      border-radius: 48px;
+      padding: 48px 40px;
+      margin: 60px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(30, 111, 92, 0.2);
+    }
+
+    .quiz-text {
+      flex: 1.2;
+    }
+
+    .quiz-text h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #0a2b4e;
+    }
+
+    .quiz-text p {
+      margin-bottom: 24px;
+      color: #2c4e6e;
+    }
+
+    .quiz-badge {
+      background: #0a2b4e;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 60px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    .quiz-icon {
+      flex: 0.8;
+      text-align: center;
+      font-size: 5rem;
+      color: #1e6f5c;
+      background: #f0f7f4;
+      border-radius: 64px;
+      padding: 30px 20px;
+    }
+
+    /* CTA section */
+    .cta-section {
+      background: #0a2b4e;
+      border-radius: 48px;
+      padding: 56px 48px;
+      margin: 60px 0;
+      text-align: center;
+      color: white;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      margin-bottom: 28px;
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .btn-cta {
+      background: #f3b33d;
+      color: #1e2a36;
+      border: none;
+      font-weight: 700;
+    }
+
+    .btn-cta:hover {
+      background: #ffbf55;
+      transform: scale(1.02);
+    }
+
+    /* footer */
+    footer {
+      padding: 40px 0 30px;
+      border-top: 1px solid #dce5ec;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #4a627a;
+      text-align: center;
+    }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      .navbar {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero {
+        flex-direction: column;
+      }
+      .quiz-module {
+        flex-direction: column;
+        text-align: center;
+      }
+      .container {
+        padding: 0 20px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+        <i class="fas fa-shield-halos"></i>
+        <span>AI CyberShield</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <div class="dropdown">
+            <button class="dropbtn">
+                Features <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <div class="dropdown-content">
+                <a href="/chat/usr/">
+{#                    <i class="fas fa-envelope-open-text"></i>#}
+                    Chat With User
+                </a>
+
+                <a href="/datasource/threat/">
+{#                    <i class="fas fa-user-secret"></i>#}
+                    Threat Monitor
+                </a>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <a href="/" class="btn btn-outline">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </a>
+    </div>
+</nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-robot"></i> AI-powered protection
+      </div>
+      <h1>Detect phishing. <br>Stop leaks. Stay aware.</h1>
+      <p>AI CyberShield analyzes email threats, checks exposed credentials, and trains you with interactive security quizzes — all in one intuitive platform.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <button class="btn btn-primary"><i class="fas fa-shield-alt"></i> Free Email Scan</button>
+        <button class="btn btn-outline"><i class="fas fa-database"></i> Check Leaked Credentials</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-number">12M+</span><br>emails analyzed</div>
+        <div class="stat"><span class="stat-number">98%</span><br>phishing detection rate</div>
+        <div class="stat"><span class="stat-number">4.9★</span><br>user rating</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="shield-icon">
+        <i class="fas fa-shield-virus"></i>
+      </div>
+      <div style="font-weight: 700; font-size: 1.3rem;">Real-time threat intelligence</div>
+      <div style="margin-top: 12px; background: #eaf5f1; border-radius: 100px; padding: 4px 12px; display: inline-block; font-size: 0.8rem;"><i class="fas fa-check-circle" style="color:#1e6f5c;"></i> Breach alert ready</div>
+      <div style="margin-top: 20px; font-size: 0.85rem; color:#3c657b;">🔍 AI scans suspicious links & headers</div>
+    </div>
+  </div>
+
+  <!-- Core Features: detection + leaks -->
+  <div class="section-title">Intelligent threat detection suite</div>
+  <div class="section-sub">Leverage advanced AI to identify phishing patterns and uncover credential leaks from thousands of breaches.</div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-envelope-open-text"></i></div>
+      <h3>Phishing Analyzer</h3>
+      <p>Our AI examines email headers, embedded URLs, and linguistic patterns to flag malicious content before you click.</p>
+      <div style="margin-top: 16px;"><i class="fas fa-check-circle" style="color:#1e6f5c;"></i> Real-time threat score</div>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-fingerprint"></i></div>
+      <h3>Credential Leak Detector</h3>
+      <p>Securely verify if your email or password has been exposed in known data breaches. Get instant alerts & recommended actions.</p>
+      <div style="margin-top: 16px;"><i class="fas fa-history"></i> 16B+ breached records indexed</div>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+      <h3>Actionable Security Reports</h3>
+      <p>Receive personalized security insights, risk scores, and step-by-step guidance to lock down your digital identity.</p>
+    </div>
+  </div>
+
+  <!-- Cybersecurity Awareness Quiz Module (Interactive demo preview) -->
+{#  <div class="quiz-module">#}
+{#    <div class="quiz-text">#}
+{#      <div class="quiz-badge"><i class="fas fa-graduation-cap"></i> Interactive & gamified</div>#}
+{#      <h2>🧠 Cybersecurity Awareness Quiz Module</h2>#}
+{#      <p>Test your knowledge about phishing, password hygiene, social engineering, and safe online habits. Get instant feedback and learn how to outsmart attackers.</p>#}
+{#      <button id="startQuizBtn" class="btn btn-primary" style="background: #1e6f5c;"><i class="fas fa-puzzle-piece"></i> Take a quick quiz →</button>#}
+{#      <div id="quizPreview" style="margin-top: 24px; background: #ffffffd9; border-radius: 24px; padding: 16px; display: none;">#}
+{#        <div id="quizQuestion" style="font-weight: 600;"></div>#}
+{#        <div id="quizOptions" style="margin-top: 12px;"></div>#}
+{#        <div id="quizFeedback" style="margin-top: 12px; font-size: 0.9rem;"></div>#}
+{#      </div>#}
+{#    </div>#}
+{#    <div class="quiz-icon">#}
+{#      <i class="fas fa-brain"></i>#}
+{#      <div style="font-size: 0.9rem; margin-top: 10px;">+70% better security habits</div>#}
+{#    </div>#}
+{#  </div>#}
+
+  <!-- Additional highlights: admin & education -->
+  <div class="cards-grid" style="margin-top: 0;">
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+      <h3>Admin Supervision</h3>
+      <p>Organizations can monitor team security posture, enforce policies, and access aggregated threat analytics.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-chalkboard-user"></i></div>
+      <h3>Periodic Assessments</h3>
+      <p>Schedule awareness campaigns, track progress and reduce human risk with personalized learning paths.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon"><i class="fas fa-hand-peace"></i></div>
+      <h3>Safer digital habits</h3>
+      <p>From strong password practices to 2FA adoption — transform your digital behavior with AI CyberShield's insights.</p>
+    </div>
+  </div>
+
+  <!-- Final CTA / contribution message -->
+  <div class="cta-section">
+    <h2>Ready to outsmart cyber threats?</h2>
+    <p>Join thousands of users who strengthened their email security & cyber awareness.</p>
+    <button class="btn btn-cta"><i class="fas fa-rocket"></i> Get started — it's free</button>
+    <div style="margin-top: 24px; font-size: 0.85rem;"><i class="fas fa-lock"></i> No credit card required. Privacy-first design.</div>
+  </div>
+
+  <footer>
+    <div style="display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 24px;">
+      <span><i class="fas fa-shield-alt"></i> AI CyberShield</span>
+      <span>🔍 Phishing detection</span>
+      <span>📊 Breach monitoring</span>
+      <span>🧠 Awareness hub</span>
+    </div>
+    <p>© 2025 AI CyberShield — Reducing cyber risks, protecting sensitive information, promoting cybersecurity awareness.</p>
+    <p style="margin-top: 12px; font-size: 0.8rem;"><i class="fas fa-globe"></i> Safer digital communication environments for everyone.</p>
+  </footer>
+</div>
+
+<script>
+  // Interactive awareness quiz: demo module that pops up inside the quiz module
+  const quizBank = [
+    {
+      question: "What is the most common indicator of a phishing email?",
+      options: ["Urgent language & mismatched URLs", "Professional signature", "Attached PDF from known contact", "Company logo only"],
+      correct: 0,
+      explanation: "Phishing emails often use urgency, fake links, and slight domain misspellings to trick users."
+    },
+    {
+      question: "Which of the following is a strong password practice?",
+      options: ["Using 'password123' for all accounts", "Long passphrases with unique characters and 2FA", "Your birthday + pet name", "Only numeric PINs"],
+      correct: 1,
+      explanation: "Long passphrases combined with 2FA dramatically improve account security against credential leaks."
+    },
+    {
+      question: "What should you do if you receive an email saying your account was compromised?",
+      options: ["Click the reset link immediately", "Forward to IT and verify by visiting official site", "Reply with your password", "Ignore it completely"],
+      correct: 1,
+      explanation: "Always verify through official channels. Never click on unsolicited links."
+    },
+    {
+      question: "What is social engineering?",
+      options: ["Engineering social media", "Manipulating people into revealing confidential info", "A type of antivirus", "Encrypting social data"],
+      correct: 1,
+      explanation: "Social engineering exploits human psychology to bypass security measures."
+    }
+  ];
+
+  let currentQuizIndex = 0;
+  let quizActive = false;
+  const quizPreviewDiv = document.getElementById('quizPreview');
+  const quizQuestionDiv = document.getElementById('quizQuestion');
+  const quizOptionsDiv = document.getElementById('quizOptions');
+  const quizFeedbackDiv = document.getElementById('quizFeedback');
+  const startBtn = document.getElementById('startQuizBtn');
+
+  function renderQuizQuestion() {
+    if (!quizActive) return;
+    const q = quizBank[currentQuizIndex];
+    if (!q) {
+      // quiz finished
+      quizQuestionDiv.innerText = "🎉 Quiz completed! Great job! 🎉";
+      quizOptionsDiv.innerHTML = `<button class="btn btn-outline" id="restartQuizBtn" style="margin-top: 8px;">Restart quiz</button>`;
+      quizFeedbackDiv.innerHTML = "You've improved your cyber awareness. Keep learning with AI CyberShield!";
+      const restartBtn = document.getElementById('restartQuizBtn');
+      if (restartBtn) restartBtn.onclick = () => { currentQuizIndex = 0; quizActive = true; renderQuizQuestion(); };
+      return;
+    }
+    quizQuestionDiv.innerText = `${currentQuizIndex+1}. ${q.question}`;
+    let optionsHtml = `<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">`;
+    q.options.forEach((opt, idx) => {
+      optionsHtml += `<button class="quiz-option-btn" data-opt-index="${idx}" style="background:#f0f4f9; border:none; border-radius: 60px; padding: 8px 16px; text-align:left; cursor:pointer; transition:0.1s;">${String.fromCharCode(65+idx)}. ${opt}</button>`;
+    });
+    optionsHtml += `</div>`;
+    quizOptionsDiv.innerHTML = optionsHtml;
+    quizFeedbackDiv.innerHTML = "";
+
+    // attach listeners
+    document.querySelectorAll('.quiz-option-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const selected = parseInt(btn.getAttribute('data-opt-index'));
+        const currentQ = quizBank[currentQuizIndex];
+        if (selected === currentQ.correct) {
+          quizFeedbackDiv.innerHTML = `<span style="color:#1e6f5c;"><i class="fas fa-check-circle"></i> Correct! ${currentQ.explanation}</span>`;
+          // move to next question after delay
+          setTimeout(() => {
+            if (quizActive) {
+              currentQuizIndex++;
+              renderQuizQuestion();
+            }
+          }, 1500);
+        } else {
+          quizFeedbackDiv.innerHTML = `<span style="color:#b13e3e;"><i class="fas fa-times-circle"></i> Oops! That's incorrect. ${currentQ.explanation}</span>`;
+          // allow to retry same question? We give explanation but keep same question
+          // disable options temporarily to avoid spam
+          document.querySelectorAll('.quiz-option-btn').forEach(btn => btn.style.opacity = '0.5');
+          setTimeout(() => {
+            if (quizActive) {
+              // re-enable and keep same question, but we need to refresh options? just reset UI for same question
+              renderQuizQuestion(); // rerender same index to enable buttons again
+            }
+          }, 2000);
+        }
+      });
+    });
+  }
+
+  startBtn.addEventListener('click', () => {
+    quizActive = true;
+    currentQuizIndex = 0;
+    quizPreviewDiv.style.display = "block";
+    renderQuizQuestion();
+    // smoothly scroll to quiz module
+    document.querySelector('.quiz-module').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // optional: if user closes quiz preview? but it's okay; we show inside module
+  // also add a mini leak check simulation (demo) but not required – just to show interactive spirit.
+  // Additional simulated credential check? minor feature but not mandatory.
+  console.log("AI CyberShield homepage ready: phishing detection & awareness module integrated");
+</script>
+</body>
+</html>
