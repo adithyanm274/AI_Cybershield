@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-only-fallback-key-change-me')
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1','https://ai-cybershield-dbpc.onrender.com/']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
