@@ -5,10 +5,9 @@ from .models import EmailScan
 from django.shortcuts import render
 from openai import OpenAI
 import json
+import os
+client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
 
-client = OpenAI(
-    api_key=""
-)
 def email_scanner(request):
 
     result = None
